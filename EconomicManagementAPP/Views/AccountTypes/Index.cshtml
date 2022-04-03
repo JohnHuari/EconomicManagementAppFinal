@@ -1,0 +1,41 @@
+﻿@model IEnumerable<AccountTypes>
+
+@{
+    ViewData["Title"] = "Tipos de Cuenta";
+}
+
+<h1>Tipos de Cuenta</h1>
+<h5>Crea los tipos de cuenta que consideres necesarios en tus operaciones. Tambien, administralos acorde a tus necesidades.</h5>
+<p></p>
+<a asp-action="Create" class="btn btn-primary mb-3">Crear Tipo de Cuenta</a>
+
+@if(Model.Any()){
+<table class="table">
+    <thead>
+        <tr>
+            <th>Acción</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody id="reordenable">
+        @foreach (var accountTypes in Model)
+        {
+            <tr>
+                <td>
+                    <input type="hidden" value="@accountTypes.Id" class="ids" />
+                    <a class="btn btn-primary" asp-action="Modify" asp-route-id="@accountTypes.Id">Modificar</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@accountTypes.Id">Eliminar</a>
+                </td>
+                <td>
+                    @accountTypes.Name
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+}@if(!Model.Any()){
+    <h1>
+        No hay resultados.
+    </h1>
+}

@@ -1,0 +1,54 @@
+@model IEnumerable<Transactions>
+
+@{
+    ViewData["Title"] = "Transacciones";
+}
+
+<h1>Transacciones</h1>
+<h5>Desde aquí puede ver, agregar, modificar o eliminar todas sus transacciones. </h5>
+<a asp-action="Create" class="btn btn-primary mb-3">Crear</a>
+
+@if(Model.Any()){
+<table class="table">
+    <thead>
+        <tr>
+            <th>Acción</th>
+            <th>Descripción</th>
+            <th>Total</th>
+            <th>Cuenta</th>
+            <th>Categoria</th>
+            <th>Fecha de transacción</th>
+        </tr>
+    </thead>
+    <tbody id="reordenable">
+        @foreach (var transactions in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-primary" asp-action="Modify" asp-route-id="@transactions.Id">Modificar</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@transactions.Id">Eliminar</a>
+                </td>
+                <td>
+                    @transactions.Description
+                </td>
+                <td>
+                    @transactions.Total
+                </td>
+                <td>
+                    @transactions.AccountId
+                </td>
+                <td>
+                    @transactions.CategoryId
+                </td>
+                <td>
+                    @transactions.TransactionDate.ToString("dddd, dd MMMM yyyy")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}@if(!Model.Any()){
+    <h1>
+        No hay resultados
+    </h1>
+}

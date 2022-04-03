@@ -1,0 +1,44 @@
+@model IEnumerable<Categories>
+
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<h1>Categorias</h1>
+<h5>Las categorías nos ayudan a ver en qué gastamos nuestro dinero, también de dónde provienen nuestros ingresos.</h5>
+<p></p>
+<a asp-action="Create" class="btn btn-primary mb-3">Crear Categoria</a>
+
+@if(Model.Any()){
+<table class="table">
+    <thead>
+        <tr>
+            <th>Acción</th>
+            <th>Nombre</th>
+            <th>Tipo de Operación</th>
+        </tr>
+    </thead>
+    <tbody id="reordenable">
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-primary" asp-action="Modify" asp-route-id="@category.Id">Modificar</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@category.Id">Eliminar</a>
+                </td>
+                <td>
+                    @category.Name
+                </td>
+                <td>
+                    @category.OperationTypeId.ToString()
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+}@if(!Model.Any()){
+    <h1>
+        No hay resultados.
+    </h1>
+}

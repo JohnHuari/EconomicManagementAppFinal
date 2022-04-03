@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Accounts>
+@{
+    ViewData["Title"] = "Cuentas";
+}
+
+<h1>Cuentas</h1>
+<h5>Crea, edita y elimina tus cuentas.</h5>
+<p></p>
+<a asp-action="Create" class="btn btn-primary mb-3">Crear Cuenta</a>
+
+
+@if(Model.Any())
+{
+    <table class="table">
+  <thead>
+    <tr>
+      <th>Acción</th>
+      <th>Nombre</th>
+      <th>Id de Tipo de Cuenta</th>
+      <th>Balance</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody id="reordenable">
+    @foreach (var accounts in Model)
+    {
+            <tr>
+                <td>
+                    <input type="hidden" value="@accounts.Id" class="ids" />
+                    <a class="btn btn-primary" asp-action="Modify" asp-route-id="@accounts.Id">Modificar</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@accounts.Id">Eliminar</a>
+                </td>
+                <td>
+                    @accounts.Name
+                </td>
+                <td>
+                  @accounts.AccountTypeId
+                </td>
+                <td>
+@accounts.Balance
+                </td>
+                <td>
+                  @accounts.Description
+                </td>
+            </tr>
+    }
+  </tbody>
+
+</table>
+}@if(!Model.Any()){
+    <h1>
+        No hay resultados
+    </h1>
+}
+
